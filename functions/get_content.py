@@ -12,14 +12,12 @@ def get_file_content(working_directory, file_path):
          return f'Error: File not found or is not a regular file: "{file_path}"'
     
     try:
-        truncated_file = []
         with open(dir_abs_file_path) as f:
-            truncated_file.append(f.read(max_chars))
-            length= f.seek(0, 2)  
-            if length > 10000:
-                truncated_file.append(f'...File "{file_path}" truncated at 10000 characters')
+            content = f.read(max_chars)
+            if os.path.getsize(dir_abs_file_path) > max_chars:
+                content += f'[...File "{file_path}" truncated at {max_chars} characters]'
 
-        return " ".join(truncated_file)
+        return content
 
     except Exception as e:
 
