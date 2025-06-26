@@ -2,3 +2,4 @@
 .env
 /calculator
 functions/__pycache__
+config.py
