@@ -1,14 +1,14 @@
-from functions.get_files import get_files_info
+from functions.get_content import get_file_content
 
 def main():
 
-    print(get_files_info("calculator", "."))
+    print(get_file_content("calculator", "lorem.txt"))
     print()
-    print(get_files_info("calculator", "pkg"))
+    print(get_file_content("calculator", "main.py"))
     print()
-    print(get_files_info("calculator", "/bin"))
+    print(get_file_content("calculator", "pkg/calculator.py"))
     print()
-    print(get_files_info("calculator", "../"))
+    print(get_file_content("calculator", "/bin/cat"))
 
 if __name__ == "__main__":
     main()
