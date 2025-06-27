@@ -19,6 +19,7 @@ def get_files_info(working_directory, directory=None):
             content.append(f'{file}: file_size={os.path.getsize(file_path)} bytes, is_dir={os.path.isdir(file_path)}')
         
         return "\n".join(content)
+    
     except Exception as e:
         return f"Error when getting files: {e}"
     
