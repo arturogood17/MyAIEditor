@@ -1,10 +1,8 @@
 import os
 import subprocess
 from google.genai import types
-from config import work_dir
 
 def run_python_file(working_directory, file_path, args=None):
-    working_directory = work_dir
     abs_working_dir = os.path.abspath(working_directory)
     dir_abs_path = os.path.abspath(os.path.join(working_directory, file_path))
 
@@ -34,10 +32,10 @@ def run_python_file(working_directory, file_path, args=None):
         if result.stdout:
             result_string.append(f"STDOUT: {result.stdout}")
 
-        if result.stdout:
+        if result.stderr:
             result_string.append(f"STDERR: {result.stderr}")
 
-        return " ".join(result_string) if result_string else "No output produced."
+        return "\n".join(result_string) if result_string else "No output produced."
     
     except Exception as e:
         return f"Error: executing Python file: {e}"

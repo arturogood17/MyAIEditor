@@ -4,7 +4,6 @@ from config import work_dir
 
 
 def write_file(working_directory, file_path, content):
-    working_directory= work_dir
     abs_working_dir = os.path.abspath(working_directory)
     dir_abs_file_path = os.path.abspath(os.path.join(working_directory, file_path))
 

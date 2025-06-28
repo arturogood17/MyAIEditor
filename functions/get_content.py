@@ -1,10 +1,8 @@
 import os
 from config import max_chars
 from google.genai import types
-from config import work_dir
 
 def get_file_content(working_directory, file_path):
-    working_directory = work_dir
     abs_working_dir = os.path.abspath(working_directory)
     dir_abs_file_path = os.path.abspath(os.path.join(working_directory, file_path))
 
