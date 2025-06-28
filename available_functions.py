@@ -17,8 +17,9 @@ available_functions = types.Tool(
 def calling_function(function, verbose= False):
     if not verbose:
         print(f'Calling function: {function.name}')
-
-    print(f'Calling function: {function.name}({function.args})')
+    
+    else:
+        print(f'Calling function: {function.name}({function.args})')
     
     function_kit = {"get_files_info": get_files_info,
                  "get_file_content": get_file_content,
