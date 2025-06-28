@@ -24,26 +24,36 @@ def main():
 
     generate_content(client, messages, verbose)
 
+
+
 def generate_content(client, messages, verbose):
     response = client.models.generate_content(model="gemini-2.0-flash-001",
                                               config=types.GenerateContentConfig(system_instruction=SYSTEMP_PROMPT, tools=[available_functions]),
                                               contents= messages,
                                               )
+
     if verbose:
         print("Prompt tokens:", response.usage_metadata.prompt_token_count)
         print("Response tokens:", response.usage_metadata.candidates_token_count)
 
     if response.function_calls:
-
-        for function in response.function_calls:
-            function_called = calling_function(function, verbose)
-            if function_called.parts[0].function_response.response == None:
-                sys.exit(1)
-            if function_called.parts[0].function_response.response != None and verbose:
-                print(f'-> {function_called.parts[0].function_response.response}')
-
-    else:
         return ("Response:", response.text)
+    
+    functions_called_so_far = []
+    for function in response.function_calls:
+        function_called = calling_function(function, verbose)
+        if (
+            not function_called.parts
+            or not function_called.parts[0].function_response.response):
+            raise Exception("empty function call result")
+        if verbose:
+            print(f'-> {function_called.parts[0].function_response.response}')
+        
+        functions_called_so_far.append(function_called.parts[0])
+        
+        if not functions_called_so_far:
+            raise Exception("No function response was generated.")
+        
 
 if __name__ == "__main__":
     main()
