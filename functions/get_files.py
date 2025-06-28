@@ -1,8 +1,9 @@
 import os
 from google.genai import types
-from config import working_directory
+from config import work_dir
 
 def get_files_info(working_directory, directory=None):
+    working_directory = work_dir
     abs_working_dir = os.path.abspath(working_directory)
     dir_abs_path = os.path.abspath(os.path.join(working_directory, directory))
 
