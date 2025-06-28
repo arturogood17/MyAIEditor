@@ -37,7 +37,6 @@ def generate_content(client, messages, verbose):
 
         for function in response.function_calls:
             print(f"Calling function: {function.name}({function.args})")
-
     else:
         return ("Response:", response.text)
 
