@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
-from available_functions import available_functions
+from available_functions import available_functions, calling_function
 from system_prompt  import SYSTEMP_PROMPT
 import os, sys
 
@@ -15,7 +15,7 @@ def main():
 
 
     verbose = "--verbose" in sys.argv[1:]
-    prompt = " ".join(sys.argv[1:])
+    prompt = " ".join(sys.argv[1:-1])
     if verbose:
         print(f"User prompt:", prompt)
     messages = [types.Content(role="user", parts=[types.Part(text=prompt)])]
@@ -36,7 +36,12 @@ def generate_content(client, messages, verbose):
     if response.function_calls:
 
         for function in response.function_calls:
-            print(f"Calling function: {function.name}({function.args})")
+            function_called = calling_function(function, verbose)
+            if function_called.parts[0].function_response.response == None:
+                sys.exit(1)
+            if function_called.parts[0].function_response.response != None and verbose:
+                print(f'-> {function_called.parts[0].function_response.response}')
+
     else:
         return ("Response:", response.text)
 
