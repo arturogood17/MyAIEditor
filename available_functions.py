@@ -27,7 +27,7 @@ def calling_function(function, verbose= False):
                  "run_python_file": run_python_file,}
     
 
-    arguments = function.args
+    arguments = dict(function.args)
     arguments["working_directory"] = work_dir
 
     if function.name not in function_kit:
@@ -48,7 +48,7 @@ def calling_function(function, verbose= False):
             parts=[
                 types.Part.from_function_response(
                     name=function.name,
-                    response={"result": {result}},
+                    response={"result": result},
                 )
             ],
         ) 
