@@ -16,7 +16,7 @@ def get_file_content(working_directory, file_path):
         with open(dir_abs_file_path) as f:
             content = f.read(max_chars)
             if os.path.getsize(dir_abs_file_path) > max_chars:
-                content += f'[...File "{file_path}" truncated at {max_chars} characters]'
+                content +=f'[...File "{file_path}" truncated at {max_chars} characters]'
 
         return content
 
@@ -35,5 +35,6 @@ schema_get_file_content = types.FunctionDeclaration(
                 description="The filepath to the file to be read, relative to the working directory.",
             ),
         },
+        required=["file_path"],
     ),
 )
